@@ -8,10 +8,11 @@ class NetworkInfo {
   /// Construct class from the json map
   factory NetworkInfo.fromMap(Map map) => NetworkInfo(
       packageName: map['packageName'],
-      rxTotalBytes: map['rxTotalBytes'],
-      txTotalBytes: map['txTotalBytes']);
+      rxTotalBytes: int.parse(map['rxTotalBytes']),
+      txTotalBytes: int.parse(map['txTotalBytes']));
 
   final String? packageName;
-  final String? rxTotalBytes;
-  final String? txTotalBytes;
+
+  final int? rxTotalBytes;
+  final int? txTotalBytes;
 }

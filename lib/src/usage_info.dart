@@ -8,16 +8,22 @@ class UsageInfo {
 
   /// Construct class from the json map
   factory UsageInfo.fromMap(Map map) => UsageInfo(
-        firstTimeStamp: map['firstTimeStamp'],
-        lastTimeStamp: map['lastTimeStamp'],
-        lastTimeUsed: map['lastTimeUsed'],
-        totalTimeInForeground: map['totalTimeInForeground'],
+        firstTimeStamp: DateTime.fromMillisecondsSinceEpoch(
+            int.parse(map['firstTimeStamp'])),
+        lastTimeStamp: DateTime.fromMillisecondsSinceEpoch(
+            int.parse(map['lastTimeStamp'])),
+        lastTimeUsed:
+            DateTime.fromMillisecondsSinceEpoch(int.parse(map['lastTimeUsed'])),
+        totalTimeInForeground:
+            Duration(milliseconds: int.parse(map['totalTimeInForeground'])),
         packageName: map['packageName'],
       );
 
   final String? packageName;
-  final String? firstTimeStamp;
-  final String? lastTimeStamp;
-  final String? lastTimeUsed;
-  final String? totalTimeInForeground;
+
+  final DateTime? firstTimeStamp;
+  final DateTime? lastTimeStamp;
+  final DateTime? lastTimeUsed;
+
+  final Duration? totalTimeInForeground;
 }
