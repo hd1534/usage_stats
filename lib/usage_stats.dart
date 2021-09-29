@@ -6,7 +6,6 @@ import 'src/configuration_info.dart';
 import 'src/event_usage_info.dart';
 import 'package:flutter/services.dart';
 
-
 import 'src/network_info.dart';
 export 'src/usage_info.dart';
 export 'src/event_info.dart';
@@ -16,9 +15,8 @@ export 'src/event_usage_info.dart';
 class UsageStats {
   static const MethodChannel _channel = const MethodChannel('usage_stats');
 
-  static Future<bool?> checkUsagePermission() async {
-    bool? isPermission = await _channel.invokeMethod('isUsagePermission');
-    return isPermission;
+  static Future<bool> checkUsagePermission() async {
+    return await _channel.invokeMethod('isUsagePermission');
   }
 
   static Future<void> grantUsagePermission() async {
@@ -30,7 +28,8 @@ class UsageStats {
     int end = endDate.millisecondsSinceEpoch;
     int start = startDate.millisecondsSinceEpoch;
     Map<String, int> interval = {'start': start, 'end': end};
-    List events = await (_channel.invokeMethod('queryEvents', interval) as FutureOr<List<dynamic>>);
+    List events = await (_channel.invokeMethod('queryEvents', interval)
+        as FutureOr<List<dynamic>>);
     List<EventUsageInfo> result =
         events.map((item) => EventUsageInfo.fromMap(item)).toList();
     return result;
@@ -41,7 +40,8 @@ class UsageStats {
     int end = endDate.millisecondsSinceEpoch;
     int start = startDate.millisecondsSinceEpoch;
     Map<String, int> interval = {'start': start, 'end': end};
-    List configs = await (_channel.invokeMethod('queryConfiguration', interval) as FutureOr<List<dynamic>>);
+    List configs = await (_channel.invokeMethod('queryConfiguration', interval)
+        as FutureOr<List<dynamic>>);
     List<ConfigurationInfo> result =
         configs.map((item) => ConfigurationInfo.fromMap(item)).toList();
     return result;
@@ -52,7 +52,8 @@ class UsageStats {
     int end = endDate.millisecondsSinceEpoch;
     int start = startDate.millisecondsSinceEpoch;
     Map<String, int> interval = {'start': start, 'end': end};
-    List eventsStats = await (_channel.invokeMethod('queryEventStats', interval) as FutureOr<List<dynamic>>);
+    List eventsStats = await (_channel.invokeMethod('queryEventStats', interval)
+        as FutureOr<List<dynamic>>);
     List<EventInfo> result =
         eventsStats.map((item) => EventInfo.fromMap(item)).toList();
     return result;
@@ -63,7 +64,8 @@ class UsageStats {
     int end = endDate.millisecondsSinceEpoch;
     int start = startDate.millisecondsSinceEpoch;
     Map<String, int> interval = {'start': start, 'end': end};
-    List usageStats = await (_channel.invokeMethod('queryUsageStats', interval) as FutureOr<List<dynamic>>);
+    List usageStats = await (_channel.invokeMethod('queryUsageStats', interval)
+        as FutureOr<List<dynamic>>);
     List<UsageInfo> result =
         usageStats.map((item) => UsageInfo.fromMap(item)).toList();
     return result;
@@ -75,7 +77,8 @@ class UsageStats {
     int start = startDate.millisecondsSinceEpoch;
     Map<String, int> interval = {'start': start, 'end': end};
     Map usageAggStats =
-        await (_channel.invokeMethod('queryAndAggregateUsageStats', interval) as FutureOr<Map<dynamic, dynamic>>);
+        await (_channel.invokeMethod('queryAndAggregateUsageStats', interval)
+            as FutureOr<Map<dynamic, dynamic>>);
 //    usageAggStats.
     Map<String, UsageInfo> result = usageAggStats
         .map((key, value) => MapEntry(key as String, UsageInfo.fromMap(value)));
@@ -87,7 +90,8 @@ class UsageStats {
     int end = endDate.millisecondsSinceEpoch;
     int start = startDate.millisecondsSinceEpoch;
     Map<String, int> interval = {'start': start, 'end': end};
-    List events = await (_channel.invokeMethod('queryNetworkUsageStats', interval) as FutureOr<List<dynamic>>);
+    List events = await (_channel.invokeMethod(
+        'queryNetworkUsageStats', interval) as FutureOr<List<dynamic>>);
     List<NetworkInfo> result =
         events.map((item) => NetworkInfo.fromMap(item)).toList();
     return result;
